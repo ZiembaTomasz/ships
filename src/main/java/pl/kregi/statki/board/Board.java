@@ -9,7 +9,7 @@ public class Board {
     private final int size;
     private final Map<Point, Ship> occupied;
 
-    private Board(final int size) {
+    public Board(final int size) {
         this.size = size;
         this.occupied = new HashMap<>();
     }
@@ -37,6 +37,10 @@ public class Board {
                 throw new ShipCollisionException();
             }
         }
+    }
+    public static Board createBoard(){
+        Board board = new Board(10);
+        return board;
     }
 
     private void checkBounds(final Set<Point> positions) {
@@ -67,4 +71,5 @@ public class Board {
     public boolean hasOnPosition(final Point position) {
         return occupied.containsKey(position);
     }
+
 }

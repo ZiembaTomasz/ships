@@ -3,6 +3,7 @@ package pl.kregi.statki.game;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.Assert;
+import pl.kregi.statki.board.Board;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,16 +20,19 @@ public class Game {
     private int numberOfPlayers;
     @Getter
     private UUID currentPlayer;
+    @Getter
+    private Board board;
 
-    private Game(int numberOfPlayers, UUID firstPlayer) {
+    private Game(int numberOfPlayers, UUID firstPlayer, Board board) {
         this.numberOfPlayers = numberOfPlayers;
+        this.board = board;
         players = new HashSet<>();
         players.add(firstPlayer);
         currentPlayer = firstPlayer();
     }
 
-    public static Game create(int numberOfPlayers, Player firstPlayer) {
-        return new Game(numberOfPlayers, firstPlayer.getId());
+    public static Game create(int numberOfPlayers, Player firstPlayer, Board board) {
+        return new Game(numberOfPlayers, firstPlayer.getId(), board);
     }
 
     public synchronized void join(Player player) {

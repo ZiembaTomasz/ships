@@ -3,6 +3,7 @@ package pl.kregi.statki.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.kregi.statki.board.Board;
 import pl.kregi.statki.converter.GameStateConverter;
 import pl.kregi.statki.dto.GameStateDto;
 import pl.kregi.statki.game.Game;
@@ -21,9 +22,11 @@ public class GameService {
     private PlayerRepo playerRepo;
     private GameStateConverter gameStateConverter;
 
+
     public Game createGame(UUID playersToken) {
         Player player = player(playersToken);
-        Game game = Game.create(2, player);
+        Board board = new Board(10);
+        Game game = Game.create(2, player, board);
         gameRepo.save(game);
         playerRepo.save(player);
         return game;
