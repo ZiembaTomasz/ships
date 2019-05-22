@@ -1,6 +1,8 @@
 package pl.kregi.statki.board;
 
+
 import lombok.Getter;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +12,7 @@ public class Ship {
     private final Set<Point> positions;
     private final Set<Point> positionsHit;
 
-    private Ship(Set<Point> positions) {
+    public Ship(Set<Point> positions) {
         this.positions = positions;
         this.positionsHit = new HashSet<>();
     }

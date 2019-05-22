@@ -38,10 +38,6 @@ public class Board {
             }
         }
     }
-    public static Board createBoard(){
-        Board board = new Board(10);
-        return board;
-    }
 
     private void checkBounds(final Set<Point> positions) {
         for (final Point position : positions) {

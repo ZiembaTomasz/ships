@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.kregi.statki.board.Board;
+import pl.kregi.statki.board.Point;
+import pl.kregi.statki.board.Ship;
 import pl.kregi.statki.converter.GameStateConverter;
 import pl.kregi.statki.dto.GameStateDto;
 import pl.kregi.statki.game.Game;
@@ -11,8 +13,7 @@ import pl.kregi.statki.game.Player;
 import pl.kregi.statki.repo.GameRepo;
 import pl.kregi.statki.repo.PlayerRepo;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -25,7 +26,6 @@ public class GameService {
 
     public Game createGame(UUID playersToken) {
         Player player = player(playersToken);
-        Board board = new Board(10);
         Game game = Game.create(2, player, board);
         gameRepo.save(game);
         playerRepo.save(player);

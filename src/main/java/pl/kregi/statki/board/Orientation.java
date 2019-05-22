@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Orientation {
-    VERTICAL(new Point(1, 0)), HORIZONTAL(new Point(0, 1));
+    VERTICAL(new Point(0, 1)), HORIZONTAL(new Point(1, 0));
 
     private Point value;
 

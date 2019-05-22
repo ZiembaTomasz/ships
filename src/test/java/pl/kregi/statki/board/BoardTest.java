@@ -10,7 +10,7 @@ public class BoardTest {
     @Test
     public void shouldCreateBoardGivenOneSizedShip() {
         // given
-        final Ship ship = makeShip(point(1, 1), 1, Orientation.HORIZONTAL);
+        final Ship ship = makeShip(point(1, 1), 1, Orientation.VERTICAL);
 
         // when
         final Board board = Board.withShips(singleton(ship), 2);
@@ -25,7 +25,7 @@ public class BoardTest {
     @Test
     public void shouldCreateBoardGivenTwoSizedShip() {
         // given
-        final Ship ship = makeShip(point(1, 1), 2, Orientation.HORIZONTAL);
+        final Ship ship = makeShip(point(1, 1), 2, Orientation.VERTICAL);
 
         // when
         final Board board = Board.withShips(singleton(ship), 2);
@@ -39,7 +39,7 @@ public class BoardTest {
     @Test
     public void shouldCreateBoardGivenThreeSizedShip() {
         // given
-        final Ship ship = makeShip(point(1, 1), 3, Orientation.VERTICAL);
+        final Ship ship = makeShip(point(1, 1), 3, Orientation.HORIZONTAL);
 
         // when
         final Board board = Board.withShips(singleton(ship), 3);
@@ -59,7 +59,7 @@ public class BoardTest {
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionGivenShipOutOfBoardBounds() {
         // given
-        final Ship ship = makeShip(point(4, 1), 1, Orientation.HORIZONTAL);
+        final Ship ship = makeShip(point(4, 1), 1, Orientation.VERTICAL);
 
         // when
         Board.withShips(singleton(ship), 3);
@@ -68,8 +68,8 @@ public class BoardTest {
     @Test(expected = ShipCollisionException.class)
     public void shouldThrowExceptionGivenAddingShipOverOther() {
         // given
-        final Ship ship1 = makeShip(point(1, 1), 1, Orientation.HORIZONTAL);
-        final Ship ship2 = makeShip(point(1, 1), 1, Orientation.HORIZONTAL);
+        final Ship ship1 = makeShip(point(1, 1), 1, Orientation.VERTICAL);
+        final Ship ship2 = makeShip(point(1, 1), 1, Orientation.VERTICAL);
         final Board board = Board.withShips(singleton(ship1), 3);
 
         // when
@@ -79,8 +79,8 @@ public class BoardTest {
     @Test(expected = ShipCollisionException.class)
     public void shouldThrowExceptionGivenAddingShipNextToOther() {
         // given
-        final Ship ship1 = makeShip(point(1, 1), 1, Orientation.HORIZONTAL);
-        final Ship ship2 = makeShip(point(2, 1), 1, Orientation.HORIZONTAL);
+        final Ship ship1 = makeShip(point(1, 1), 1, Orientation.VERTICAL);
+        final Ship ship2 = makeShip(point(2, 1), 1, Orientation.VERTICAL);
         final Board board = Board.withShips(singleton(ship1), 3);
 
         // when
@@ -90,8 +90,8 @@ public class BoardTest {
     @Test(expected = ShipCollisionException.class)
     public void shouldThrowExceptionGivenAddingShipNextToOtherDifferentSizes() {
         // given
-        final Ship ship1 = makeShip(point(3, 3), 1, Orientation.HORIZONTAL);
-        final Ship ship2 = makeShip(point(2, 1), 3, Orientation.HORIZONTAL);
+        final Ship ship1 = makeShip(point(3, 3), 1, Orientation.VERTICAL);
+        final Ship ship2 = makeShip(point(2, 1), 3, Orientation.VERTICAL);
         final Board board = Board.withShips(singleton(ship1), 3);
 
         // when

@@ -5,10 +5,7 @@ import lombok.Setter;
 import org.springframework.util.Assert;
 import pl.kregi.statki.board.Board;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class Game {
     private Set<UUID> players;
@@ -21,18 +18,18 @@ public class Game {
     @Getter
     private UUID currentPlayer;
     @Getter
-    private Board board;
+    private Map<UUID, Board>boards;
 
-    private Game(int numberOfPlayers, UUID firstPlayer, Board board) {
+    private Game(int numberOfPlayers, UUID firstPlayer, Map<UUID, Board>boards) {
         this.numberOfPlayers = numberOfPlayers;
-        this.board = board;
+        this.boards = boards;
         players = new HashSet<>();
         players.add(firstPlayer);
         currentPlayer = firstPlayer();
     }
 
-    public static Game create(int numberOfPlayers, Player firstPlayer, Board board) {
-        return new Game(numberOfPlayers, firstPlayer.getId(), board);
+    public static Game create(int numberOfPlayers, Player firstPlayer, Map<UUID, Board>boards) {
+        return new Game(numberOfPlayers, firstPlayer.getId(), boards);
     }
 
     public synchronized void join(Player player) {
