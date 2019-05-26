@@ -36,7 +36,7 @@ public class CreateShipsTest {
 
         // then
         assertThat(result.getPositions().size()).isEqualTo(2);
-        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(1, 2));
+        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(2, 1));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class CreateShipsTest {
 
         // then
         assertThat(result.getPositions().size()).isEqualTo(2);
-        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(2, 1));
+        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(1, 2));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CreateShipsTest {
         final Ship result = Ship.create(startPoint, 3, Orientation.HORIZONTAL);
 
         // then
-        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(1, 2), makePoint(1, 3));
+        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(2, 1), makePoint(3, 1));
     }
 
     @Test
@@ -73,6 +73,6 @@ public class CreateShipsTest {
         final Ship result = Ship.create(startPoint, 3, Orientation.VERTICAL);
 
         // then
-        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(2, 1), makePoint(3, 1));
+        assertThat(result.getPositions()).containsExactlyInAnyOrder(makePoint(1, 1), makePoint(1, 2), makePoint(1, 3));
     }
 }

@@ -1,9 +1,17 @@
 package pl.kregi.statki.board;
 
 import org.junit.Test;
+import pl.kregi.statki.game.Game;
+import pl.kregi.statki.game.Player;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import static java.util.Collections.newSetFromMap;
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class BoardTest {
 
@@ -96,6 +104,21 @@ public class BoardTest {
 
         // when
         board.add(ship2);
+    }
+    @Test(expected = ShipCollisionException.class)
+    public void shouldCreateBoards(){
+        //given
+        Player player = new Player(UUID.randomUUID());
+        SampleBoardFactory sampleBoardFactory = new SampleBoardFactory();
+        Board board = sampleBoardFactory.createFirstBoard();
+        Map<UUID, Board>mapka = new HashMap<>();
+        UUID id = player.getId();
+        mapka.put(id, board);
+        //when
+        Game game = Game.create(2, player, board);
+
+        assertEquals(game.getBoards().size(), mapka.size());
+
     }
 
     private Ship makeShip(final Point position, final int size, final Orientation orientation) {

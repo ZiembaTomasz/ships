@@ -3,9 +3,7 @@ package pl.kregi.statki.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import pl.kregi.statki.board.Board;
-import pl.kregi.statki.board.Point;
-import pl.kregi.statki.board.Ship;
+import pl.kregi.statki.board.SampleBoardFactory;
 import pl.kregi.statki.converter.GameStateConverter;
 import pl.kregi.statki.dto.GameStateDto;
 import pl.kregi.statki.game.Game;
@@ -26,7 +24,8 @@ public class GameService {
 
     public Game createGame(UUID playersToken) {
         Player player = player(playersToken);
-        Game game = Game.create(2, player, board);
+        SampleBoardFactory sampleBoardFactory = new SampleBoardFactory();
+        Game game = Game.create(2, player, sampleBoardFactory.createFirstBoard());
         gameRepo.save(game);
         playerRepo.save(player);
         return game;
@@ -36,7 +35,8 @@ public class GameService {
         Game game = Optional.ofNullable(gameRepo.findOne(id))
                 .orElseThrow(() -> new IllegalArgumentException("Game with id " + id + " does not exist"));
         Player player = player(playersToken);
-        game.join(player);
+        SampleBoardFactory sampleBoardFactory = new SampleBoardFactory();
+        game.join(player, sampleBoardFactory.createSecondBoard());
         playerRepo.save(player);
         return gameStateConverter.convert(game);
     }

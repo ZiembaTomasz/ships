@@ -8,7 +8,7 @@ import pl.kregi.statki.board.Board;
 import java.util.*;
 
 public class Game {
-    private Set<UUID> players;
+     Set<UUID> players;
 
     @Getter
     @Setter
@@ -20,7 +20,7 @@ public class Game {
     @Getter
     private Map<UUID, Board>boards;
 
-    private Game(int numberOfPlayers, UUID firstPlayer, Map<UUID, Board>boards) {
+     public Game(int numberOfPlayers, UUID firstPlayer, Map<UUID, Board>boards) {
         this.numberOfPlayers = numberOfPlayers;
         this.boards = boards;
         players = new HashSet<>();
@@ -28,17 +28,20 @@ public class Game {
         currentPlayer = firstPlayer();
     }
 
-    public static Game create(int numberOfPlayers, Player firstPlayer, Map<UUID, Board>boards) {
-        return new Game(numberOfPlayers, firstPlayer.getId(), boards);
+    public static Game create(int numberOfPlayers, Player firstPlayer, Board firstPlayerBoard) {
+        Map<UUID, Board> boardMap = new HashMap<>();
+        boardMap.put(firstPlayer.getId(), firstPlayerBoard);
+        return new Game(numberOfPlayers, firstPlayer.getId(), boardMap);
     }
 
-    public synchronized void join(Player player) {
+    public synchronized void join(Player player, Board playerBoard) {
         Assert.notNull(player, "Joining player cannot be null");
         Assert.notNull(player.getId(), "Joining player id cannot be null");
         if (players.size() >= numberOfPlayers) {
             throw new IllegalStateException("Game is full");
         }
         players.add(player.getId());
+        boards.put(player.getId(), playerBoard);
     }
 
     public UUID firstPlayer() {

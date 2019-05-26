@@ -3,10 +3,7 @@ package pl.kregi.statki.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.kregi.statki.dto.CreateGameDto;
 import pl.kregi.statki.dto.GameStateDto;
 import pl.kregi.statki.game.Game;
@@ -59,4 +56,5 @@ public class GameController {
     private String inviteUrl(Game game) {
         return joinUrl.replace("{id}", String.valueOf(game.getId()));
     }
+    @PutMapping()
 }
