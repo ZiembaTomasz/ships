@@ -105,19 +105,17 @@ public class BoardTest {
         // when
         board.add(ship2);
     }
-    @Test(expected = ShipCollisionException.class)
+    @Test
     public void shouldCreateBoards(){
         //given
         Player player = new Player(UUID.randomUUID());
         SampleBoardFactory sampleBoardFactory = new SampleBoardFactory();
         Board board = sampleBoardFactory.createFirstBoard();
-        Map<UUID, Board>mapka = new HashMap<>();
         UUID id = player.getId();
-        mapka.put(id, board);
         //when
         Game game = Game.create(2, player, board);
 
-        assertEquals(game.getBoards().size(), mapka.size());
+        assertThat(game.getBoards().get(id)).isEqualTo(board);
 
     }
 

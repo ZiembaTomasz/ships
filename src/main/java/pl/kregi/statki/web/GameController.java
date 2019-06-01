@@ -56,5 +56,13 @@ public class GameController {
     private String inviteUrl(Game game) {
         return joinUrl.replace("{id}", String.valueOf(game.getId()));
     }
-    @PutMapping()
+    @PutMapping("/game/{id}")
+    public ResponseEntity<GameStateDto>shot(@PathVariable Long id,
+                                            @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken){
+        if(playersToken == null) {
+            playersToken == UUID.randomUUID();
+        }
+        GameStateDto body =
+    }
+
 }
