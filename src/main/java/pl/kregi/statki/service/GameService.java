@@ -22,6 +22,7 @@ public class GameService {
     private GameStateConverter gameStateConverter;
 
 
+
     public Game createGame(UUID playersToken) {
         Player player = player(playersToken);
         SampleBoardFactory sampleBoardFactory = new SampleBoardFactory();
@@ -45,6 +46,14 @@ public class GameService {
         Assert.notNull(playersToken, "Token cannot be null");
         return Optional.ofNullable(playerRepo.findOne(playersToken))
                 .orElse(new Player(UUID.randomUUID()));
+    }
+    public boolean isPlayerMove(UUID player, Long id){
+        Game game = Optional.ofNullable(gameRepo.findOne(id))
+                .orElseThrow(() -> new IllegalArgumentException("Game with id " + id + " does not exist"));
+        if(player.equals(game.getCurrentPlayer())){
+            return true;
+        }
+        return false;
     }
 
 }

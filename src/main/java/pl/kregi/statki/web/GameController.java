@@ -1,11 +1,14 @@
 package pl.kregi.statki.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.kregi.statki.board.Point;
 import pl.kregi.statki.dto.CreateGameDto;
 import pl.kregi.statki.dto.GameStateDto;
+import pl.kregi.statki.dto.PositionDto;
 import pl.kregi.statki.game.Game;
 import pl.kregi.statki.service.GameService;
 
@@ -20,6 +23,7 @@ public class GameController {
 
     private String joinUrl;
     private GameService gameService;
+    private Game game;
 
     @Autowired
     public GameController(@Value("${statki.url}") String statkiUrl, GameService gameService) {
@@ -56,13 +60,19 @@ public class GameController {
     private String inviteUrl(Game game) {
         return joinUrl.replace("{id}", String.valueOf(game.getId()));
     }
+
     @PutMapping("/game/{id}")
     public ResponseEntity<GameStateDto>shot(@PathVariable Long id,
-                                            @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken){
-        if(playersToken == null) {
-            playersToken == UUID.randomUUID();
+                                          @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken,
+                                            @RequestBody PositionDto p){
+        if(gameService.isPlayerMove(playersToken, id)){
+            System.out.println("tura gracza");
         }
-        GameStateDto body =
+        else{
+            System.out.println("nie jest tura gracza");
+        }
+
+        return null;
     }
 
 }

@@ -42,6 +42,7 @@ public class Game {
         }
         players.add(player.getId());
         boards.put(player.getId(), playerBoard);
+        currentPlayer = player.getId();
     }
 
     public UUID firstPlayer() {
@@ -51,4 +52,5 @@ public class Game {
     public Set<UUID> getPlayers() {
         return Collections.unmodifiableSet(players);
     }
+
 }
