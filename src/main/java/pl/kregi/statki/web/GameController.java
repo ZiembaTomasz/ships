@@ -23,7 +23,7 @@ public class GameController {
 
     private String joinUrl;
     private GameService gameService;
-    private Game game;
+
 
     @Autowired
     public GameController(@Value("${statki.url}") String statkiUrl, GameService gameService) {
@@ -67,6 +67,8 @@ public class GameController {
                                             @RequestBody PositionDto p){
         if(gameService.isPlayerMove(playersToken, id)){
             System.out.println("tura gracza");
+
+
         }
         else{
             System.out.println("nie jest tura gracza");

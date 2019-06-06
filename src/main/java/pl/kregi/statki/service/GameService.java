@@ -3,6 +3,7 @@ package pl.kregi.statki.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import pl.kregi.statki.board.Point;
 import pl.kregi.statki.board.SampleBoardFactory;
 import pl.kregi.statki.converter.GameStateConverter;
 import pl.kregi.statki.dto.GameStateDto;
@@ -55,5 +56,10 @@ public class GameService {
         }
         return false;
     }
-
+    public String shot(Point point, Long id, UUID atackerPlayer){
+        Game game = Optional.ofNullable(gameRepo.findOne(id
+        )).orElseThrow(() -> new IllegalArgumentException("Game with id " + id " does not exist"));
+        return game.shot(point, atackerPlayer);
+        gameRepo.save(game);
+    }
 }

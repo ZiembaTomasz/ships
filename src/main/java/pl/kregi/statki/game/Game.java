@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.Assert;
 import pl.kregi.statki.board.Board;
+import pl.kregi.statki.board.Point;
 
 import java.util.*;
 
 public class Game {
      Set<UUID> players;
+
 
     @Getter
     @Setter
@@ -52,5 +54,15 @@ public class Game {
     public Set<UUID> getPlayers() {
         return Collections.unmodifiableSet(players);
     }
+    public String shot(Point point, UUID attackingPlayer){
+         UUID defenderPlayer = null;
 
+         for(Map.Entry<UUID, Board> entry : boards.entrySet()){
+             if(!entry.getKey().equals(attackingPlayer)){
+                 defenderPlayer = entry.getKey();
+             }
+         }
+         Board board = getBoards().get(defenderPlayer);
+        return board.shot(point);
+    }
 }

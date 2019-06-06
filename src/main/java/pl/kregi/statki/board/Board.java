@@ -67,5 +67,10 @@ public class Board {
     public boolean hasOnPosition(final Point position) {
         return occupied.containsKey(position);
     }
+    public String shot(Point point){
+        if(this.hasOnPosition(point))
+            return "Trafiony!!";
 
+        return "Pudlo!!";
+    }
 }
