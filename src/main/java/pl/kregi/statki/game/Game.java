@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.util.Assert;
 import pl.kregi.statki.board.Board;
 import pl.kregi.statki.board.Point;
+import pl.kregi.statki.board.Ship;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class Game {
     public Set<UUID> getPlayers() {
         return Collections.unmodifiableSet(players);
     }
-    public String shot(Point point, UUID attackingPlayer){
+    public Ship shot(Point point, UUID attackingPlayer){
          UUID defenderPlayer = null;
 
          for(Map.Entry<UUID, Board> entry : boards.entrySet()){
@@ -63,6 +64,9 @@ public class Game {
              }
          }
          Board board = getBoards().get(defenderPlayer);
-        return board.shot(point);
+         if(board.shot(point).niceShot(point));{
+             shot(point, attackingPlayer);
+        }
+       return board.shot(point);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.kregi.statki.board.Point;
 import pl.kregi.statki.board.SampleBoardFactory;
+import pl.kregi.statki.board.Ship;
 import pl.kregi.statki.converter.GameStateConverter;
 import pl.kregi.statki.dto.GameStateDto;
 import pl.kregi.statki.game.Game;
@@ -56,10 +57,17 @@ public class GameService {
         }
         return false;
     }
-    public String shot(Point point, Long id, UUID atackerPlayer){
+    public Ship shot(Point point, Long id, UUID atackerPlayer){
         Game game = Optional.ofNullable(gameRepo.findOne(id
-        )).orElseThrow(() -> new IllegalArgumentException("Game with id " + id " does not exist"));
-        return game.shot(point, atackerPlayer);
+        )).orElseThrow(() -> new IllegalArgumentException("Game with id " + id +" does not exist"));
         gameRepo.save(game);
+        return game.shot(point, atackerPlayer);
+    }
+    public Point conversionToPoint(String positionDto){
+        int x = positionDto.indexOf(0);
+        int y = positionDto.indexOf(1);
+        Point point = new Point(x, y);
+        return point;
+
     }
 }

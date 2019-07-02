@@ -1,6 +1,7 @@
 package pl.kregi.statki.board;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -67,10 +68,13 @@ public class Board {
     public boolean hasOnPosition(final Point position) {
         return occupied.containsKey(position);
     }
-    public String shot(Point point){
-        if(this.hasOnPosition(point))
-            return "Trafiony!!";
+    public Ship shot(Point point){
 
-        return "Pudlo!!";
+        if(this.hasOnPosition(point)){
+            Ship ship = occupied.get(point);
+            ship.hitShip(point);
+            return ship;
+        }
+        return null;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.kregi.statki.board.Point;
 import pl.kregi.statki.dto.CreateGameDto;
 import pl.kregi.statki.dto.GameStateDto;
+import pl.kregi.statki.dto.HitDto;
 import pl.kregi.statki.dto.PositionDto;
 import pl.kregi.statki.game.Game;
 import pl.kregi.statki.service.GameService;
@@ -62,13 +63,11 @@ public class GameController {
     }
 
     @PutMapping("/game/{id}")
-    public ResponseEntity<GameStateDto>shot(@PathVariable Long id,
-                                          @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken,
-                                            @RequestBody PositionDto p){
+    public ResponseEntity<HitDto>shot(@PathVariable Long id,
+                                      @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken,
+                                      @RequestBody PositionDto point){
         if(gameService.isPlayerMove(playersToken, id)){
-            System.out.println("tura gracza");
-
-
+            gameService.shot(gameService.conversionToPoint(point.getPosition()), id,playersToken);
         }
         else{
             System.out.println("nie jest tura gracza");

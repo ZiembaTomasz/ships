@@ -28,4 +28,22 @@ public class Ship {
         return new Ship(positions);
     }
 
+    public void hitShip(Point point) {
+        if (positions.contains(point))
+            positionsHit.add(point);
+    }
+
+    public boolean isSunk() {
+        if (positions.size() == positionsHit.size()) {
+            return true;
+        }
+        return false;
+    }
+    public boolean niceShot(Point point){
+        if(positions.contains(point)){
+            return true;
+        }
+        return false;
+    }
+
 }
