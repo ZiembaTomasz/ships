@@ -18,6 +18,7 @@ public class Game {
     private Long id;
     @Getter
     private int numberOfPlayers;
+    @Setter
     @Getter
     private UUID currentPlayer;
     @Getter
@@ -64,9 +65,12 @@ public class Game {
              }
          }
          Board board = getBoards().get(defenderPlayer);
-         if(board.shot(point).niceShot(point));{
-             shot(point, attackingPlayer);
+         if(board.shot(point).niceShot(point)){
+             setCurrentPlayer(attackingPlayer);
         }
+         else{
+             setCurrentPlayer(defenderPlayer);
+         }
        return board.shot(point);
     }
 }
