@@ -7,7 +7,9 @@ import pl.kregi.statki.board.Point;
 import pl.kregi.statki.board.SampleBoardFactory;
 import pl.kregi.statki.board.Ship;
 import pl.kregi.statki.converter.GameStateConverter;
+import pl.kregi.statki.converter.HitDtoConverter;
 import pl.kregi.statki.dto.GameStateDto;
+import pl.kregi.statki.dto.HitDto;
 import pl.kregi.statki.game.Game;
 import pl.kregi.statki.game.Player;
 import pl.kregi.statki.repo.GameRepo;
@@ -22,6 +24,7 @@ public class GameService {
     private GameRepo gameRepo;
     private PlayerRepo playerRepo;
     private GameStateConverter gameStateConverter;
+    private HitDtoConverter hitDtoConverter;
 
 
 
@@ -57,11 +60,12 @@ public class GameService {
         }
         return false;
     }
-    public Ship shot(Point point, Long id, UUID atackerPlayer){
+    public HitDto shot(Point point, Long id, UUID atackerPlayer){
         Game game = Optional.ofNullable(gameRepo.findOne(id
         )).orElseThrow(() -> new IllegalArgumentException("Game with id " + id +" does not exist"));
+        Ship ship = game.shot(point, atackerPlayer);
         gameRepo.save(game);
-        return game.shot(point, atackerPlayer);
+        return hitDtoConverter.convertHit(ship, point);
     }
     public Point conversionToPoint(String positionDto){
         int x = positionDto.indexOf(0);
