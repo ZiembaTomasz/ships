@@ -72,8 +72,14 @@ public class GameController {
         else{
             System.out.println("nie jest tura gracza");
         }
+        String myPoint = point.getPosition();
+        Point nextPoint = gameService.conversionToPoint(myPoint);
 
-        return null;
+
+        HitDto hit = gameService.shot(nextPoint, id, playersToken);
+
+        return ResponseEntity.ok()
+                .body(hit);
     }
 
 }
