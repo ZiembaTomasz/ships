@@ -2,10 +2,12 @@ package pl.kregi.statki.board;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.util.Assert;
 
 @EqualsAndHashCode
 @Getter
+@Setter
 public class Point {
 
     private final int x;

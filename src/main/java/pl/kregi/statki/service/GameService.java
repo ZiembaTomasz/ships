@@ -25,6 +25,7 @@ public class GameService {
     private PlayerRepo playerRepo;
     private GameStateConverter gameStateConverter;
     private HitDtoConverter hitDtoConverter;
+    private Point point;
 
 
 
@@ -68,10 +69,39 @@ public class GameService {
         return hitDtoConverter.convertHit(ship, point);
     }
     public Point conversionToPoint(String positionDto){
-        int x = positionDto.indexOf(0);
-        int y = positionDto.indexOf(1);
+        String a = positionDto.substring(1);
+        String b = positionDto.substring(2);
+        int x = 0;
+        int y = 0;
         Point point = new Point(x, y);
-        return point;
-
+        if(a.equals("A")){
+            x = 1;
+        }
+        if(a.equals("B")){
+            x = 2;
+        }
+        if(a.equals("C")){
+            x = 3;
+        }
+        if(a.equals("D")){
+            x = 4;
+        }
+        if(a.equals("E")){
+            x = 5;
+        }
+        if(a.equals("F")){
+            x = 6;
+        }
+        if(a.equals("G")){
+            x = 7;
+        }
+        if(a.equals("H")){
+            x = 8;
+        }
+        if(a.equals("I")){
+            x = 9;
+        }
+        Integer.parseInt(b);
+        return  point;
     }
 }
