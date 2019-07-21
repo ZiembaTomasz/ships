@@ -1,6 +1,7 @@
 package pl.kregi.statki.service;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import pl.kregi.statki.board.Point;
@@ -69,39 +70,41 @@ public class GameService {
         return hitDtoConverter.convertHit(ship, point);
     }
     public Point conversionToPoint(String positionDto){
-        String a = positionDto.substring(1);
-        String b = positionDto.substring(2);
+        char a = positionDto.charAt(0);
+        char b = positionDto.charAt(1);
         int x = 0;
-        int y = 0;
-        Point point = new Point(x, y);
-        if(a.equals("A")){
+        int y = b - 48;
+
+        if(a == 'A'){
             x = 1;
         }
-        if(a.equals("B")){
+        if(a =='B'){
             x = 2;
         }
-        if(a.equals("C")){
+        if(a =='C'){
             x = 3;
         }
-        if(a.equals("D")){
+        if(a =='D'){
             x = 4;
         }
-        if(a.equals("E")){
+        if(a == 'E'){
             x = 5;
         }
-        if(a.equals("F")){
+        if(a == 'F'){
             x = 6;
         }
-        if(a.equals("G")){
+        if(a == 'G'){
             x = 7;
         }
-        if(a.equals("H")){
+        if(a == 'H'){
             x = 8;
         }
-        if(a.equals("I")){
+        if(a == 'I'){
             x = 9;
         }
-        Integer.parseInt(b);
+        Point point = new Point(x, y);
+
+
         return  point;
     }
 }

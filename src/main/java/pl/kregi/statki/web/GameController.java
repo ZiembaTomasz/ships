@@ -5,14 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.kregi.statki.board.NotPlayerTurnException;
 import pl.kregi.statki.board.Point;
 import pl.kregi.statki.dto.CreateGameDto;
 import pl.kregi.statki.dto.GameStateDto;
 import pl.kregi.statki.dto.HitDto;
 import pl.kregi.statki.dto.PositionDto;
 import pl.kregi.statki.game.Game;
+import pl.kregi.statki.repo.PlayerRepo;
 import pl.kregi.statki.service.GameService;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -24,6 +27,7 @@ public class GameController {
 
     private String joinUrl;
     private GameService gameService;
+    private PlayerRepo playerRepo;
 
 
     @Autowired
@@ -63,23 +67,15 @@ public class GameController {
     }
 
     @PutMapping("/game/{id}")
-    public ResponseEntity<HitDto>shot(@PathVariable Long id,
-                                      @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken,
-                                      @RequestBody PositionDto point){
-        if(gameService.isPlayerMove(playersToken, id)){
-            gameService.shot(gameService.conversionToPoint(point.getPosition()), id,playersToken);
+    public ResponseEntity<HitDto> shot(@PathVariable Long id,
+                                       @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken,
+                                       @RequestBody PositionDto point) {
+        if (gameService.isPlayerMove(playersToken, id)) {
+            HitDto hit = gameService.shot(gameService.conversionToPoint(point.getPosition()), id, playersToken);
+            return ResponseEntity.ok()
+                    .body(hit);
+        } else {
+            throw new NotPlayerTurnException();
         }
-        else{
-            System.out.println("nie jest tura gracza");
-        }
-        String myPoint = point.getPosition();
-        Point nextPoint = gameService.conversionToPoint(myPoint);
-
-
-        HitDto hit = gameService.shot(nextPoint, id, playersToken);
-
-        return ResponseEntity.ok()
-                .body(hit);
     }
-
 }
