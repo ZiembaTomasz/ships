@@ -1,10 +1,10 @@
 package pl.kregi.statki.board;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import lombok.Getter;
 
+import java.util.*;
+
+@Getter
 public class Board {
 
     private final int size;
@@ -77,4 +77,15 @@ public class Board {
         }
         return null;
     }
+    public int counterPoints(Board board, UUID FirstPlayer){
+        Collection<Ship> myShips = occupied.values();
+        int counter = 0;
+        for (Ship ships: myShips){
+            if (ships.isSunk()){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
 }
