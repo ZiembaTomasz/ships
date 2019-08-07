@@ -8,6 +8,7 @@ import pl.kregi.statki.board.Board;
 import pl.kregi.statki.board.Point;
 import pl.kregi.statki.board.SampleBoardFactory;
 import pl.kregi.statki.board.Ship;
+import pl.kregi.statki.converter.GameScoreConverter;
 import pl.kregi.statki.converter.GameStateConverter;
 import pl.kregi.statki.converter.HitDtoConverter;
 import pl.kregi.statki.dto.GameScoreDto;
@@ -29,6 +30,7 @@ public class GameService {
     private PlayerRepo playerRepo;
     private GameStateConverter gameStateConverter;
     private HitDtoConverter hitDtoConverter;
+    private GameScoreConverter gameScoreConverter;
     private Point point;
     private Board board;
 
@@ -76,7 +78,7 @@ public class GameService {
     public GameScoreDto score(Long id, UUID playersToken){
             Game game = Optional.ofNullable(gameRepo.findOne(id))
                     .orElseThrow(() -> new IllegalArgumentException("Game with id " + id + " does not exist"));
-            return
+            return gameScoreConverter.convertScore(id, playersToken);
     }
     public Point conversionToPoint(String positionDto){
         char a = positionDto.charAt(0);
@@ -92,21 +94,33 @@ public class GameService {
     }
     public GameStatus status(Long id, UUID playersToken){
           Game game = gameRepo.findOne(id);
-        if(isPlayerMove(playersToken,id)){
-            return GameStatus.YOUR_TURN;
-        }
+          Board defenderBoard = null;
+          Board attackerBoard = null;
+        Map<UUID, Board>boards = game.getBoards();
+          for(Map.Entry<UUID, Board> entry: boards.entrySet()){
+              if(!entry.getKey().equals(playersToken)){
+                  defenderBoard = entry.getValue();
+              }
+              if(entry.getKey().equals(playersToken)){
+                  attackerBoard = entry.getValue();
+              }
+          }
+
         if (game.getNumberOfPlayers() != 2){
             return GameStatus.AWAITING_PLAYERS;
+        }
+        if(isPlayerMove(playersToken,id)){
+            return GameStatus.YOUR_TURN;
         }
         if(!isPlayerMove(playersToken, id)){
             return GameStatus.WAITING_FOR_OPPONENT_MOVE;
         }
 
-        if (isPlayerMove(playersToken, id ) && board.getSize() == board.getOccupied().size()){
-            return GameStatus.YOU_WON;
-        }
-        if (!isPlayerMove(playersToken, id) && board.getSize() == board.getOccupied().size()){
+        if (attackerBoard.allSunk()){
             return GameStatus.YOU_LOST;
+        }
+        if (defenderBoard.allSunk()){
+            return GameStatus.YOU_WON;
         }
         return null;
     }

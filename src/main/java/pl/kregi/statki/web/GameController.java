@@ -76,6 +76,8 @@ public class GameController {
     @GetMapping("/game/{id}")
     public ResponseEntity<GameScoreDto>status(@PathVariable Long id,
                                               @RequestHeader(value = AUTH_TOKEN, required = true) UUID playersToken){
-        GameScoreDto score
+        GameScoreDto gameScoreDto = gameService.score(id, playersToken);
+        return ResponseEntity.ok()
+                .body(gameScoreDto);
     }
 }

@@ -77,7 +77,7 @@ public class Board {
         }
         return null;
     }
-    public int counterPoints(Board board, UUID FirstPlayer){
+    public int counterPoints(){
         Collection<Ship> myShips = occupied.values();
         int counter = 0;
         for (Ship ships: myShips){
@@ -87,5 +87,17 @@ public class Board {
         }
         return counter;
     }
-
+    public boolean allSunk() {
+        int ships = getOccupied().size();
+        int shipsCounter = 0;
+        for (Ship ship : occupied.values()) {
+            if (ship.isSunk()) {
+                shipsCounter++;
+            }
+        }
+        if (ships == shipsCounter) {
+            return true;
+        }
+        return false;
+    }
 }

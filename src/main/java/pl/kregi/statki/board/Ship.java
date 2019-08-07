@@ -48,5 +48,4 @@ public class Ship {
     public int pointsCounter(){
          return positionsHit.size();
     }
-
 }
