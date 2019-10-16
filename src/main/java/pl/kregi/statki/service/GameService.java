@@ -112,7 +112,7 @@ public class GameService {
         if(isPlayerMove(playersToken,id)){
             return GameStatus.YOUR_TURN;
         }
-        if(!isPlayerMove(playersToken, id)){
+        if(!isPlayerMove(playersToken, id) && !attackerBoard.allSunk() && !defenderBoard.allSunk()){
             return GameStatus.WAITING_FOR_OPPONENT_MOVE;
         }
 

@@ -26,43 +26,4 @@ public class Point {
     public static Point add(final Point position, final int x, final int y) {
         return new Point(position.getX() + x, position.getY() + y);
     }
-    public String xConverter(){
-        if(getX() == 1){
-            return "a";
-        }
-        if(getX()==2){
-            return "b";
-        }
-        if(getX()==3){
-            return "b";
-        }
-        if(getX()==4){
-            return "c";
-        }
-        if(getX()==5){
-            return "d";
-        }
-        if(getX()==6){
-            return "e";
-        }
-        if(getX()==7){
-            return "f";
-        }
-        if(getX()==8){
-            return "g";
-        }
-        if(getX()==9){
-            return "h";
-        }
-        return "zly strzal";
-    }
-    public String yConverter(){
-        return String.valueOf(getY());
-    }
-    public String concantenationXY(){
-        xConverter();
-        yConverter();
-        String shot = xConverter() + yConverter();
-        return shot;
-    }
 }
