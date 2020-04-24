@@ -46,7 +46,6 @@ public class Board {
             }
         }
     }
-
     private void checkCollisions(final Ship ship) {
         for (final Point position : ship.getPositions()) {
             for (int i = -1; i <= 1; i++) {
@@ -61,7 +60,6 @@ public class Board {
 
     private boolean inBounds(final Point point) {
         return point.getX() > 0 && point.getY() > 0 && point.getX() <= size && point.getY() <= size;
-
     }
 
     public boolean hasOnPosition(final Point position) {

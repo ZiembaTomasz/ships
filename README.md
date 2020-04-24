@@ -6,6 +6,7 @@
 * inviting new players
 * checking status of the current game
 * shooting
+* applications tests
 
 ## Technologies:
 

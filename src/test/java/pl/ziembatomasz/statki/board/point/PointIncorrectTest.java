@@ -22,7 +22,7 @@ public class PointIncorrectTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {- 1, 1 }, {1, -1}
+                {- 1, 1 }, {1, -1}, {-10, 7}
         });
     }
 
