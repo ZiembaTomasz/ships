@@ -2,10 +2,20 @@ package pl.ziembatomasz.statki.board;
 
 import org.junit.Test;
 
+import java.util.Map;
+
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 public class BoardTest {
+    private Ship makeShip(final Point position, final int size, final Orientation orientation) {
+        return Ship.create(position, size, orientation);
+    }
+
+    private Point point(final int x, final int y) {
+        return new Point(x, y);
+    }
 
     @Test
     public void shouldCreateBoardGivenOneSizedShip() {
@@ -98,11 +108,16 @@ public class BoardTest {
         board.add(ship2);
     }
 
-    private Ship makeShip(final Point position, final int size, final Orientation orientation) {
-        return Ship.create(position, size, orientation);
-    }
-
-    private Point point(final int x, final int y) {
-        return new Point(x, y);
+    @Test
+    public void shouldBeOnPosition() {
+        //Given
+        Map<Point, Ship> occupied;
+        Point point = new Point(3, 3);
+        Ship ship = makeShip(point, 1, Orientation.HORIZONTAL);
+        Board board = new Board(1);
+        //When
+        Boolean check = board.hasOnPosition(point);
+        //Then
+        assertEquals(false, check);
     }
 }

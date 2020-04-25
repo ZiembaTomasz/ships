@@ -9,7 +9,7 @@ public class Board {
     private final int size;
     private final Map<Point, Ship> occupied;
 
-    private Board(final int size) {
+    public Board(final int size) {
         this.size = size;
         this.occupied = new HashMap<>();
     }
