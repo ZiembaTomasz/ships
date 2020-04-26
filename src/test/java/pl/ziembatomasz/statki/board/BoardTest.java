@@ -2,7 +2,6 @@ package pl.ziembatomasz.statki.board;
 
 import org.junit.Test;
 
-import java.util.Map;
 
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -111,13 +110,12 @@ public class BoardTest {
     @Test
     public void shouldBeOnPosition() {
         //Given
-        Map<Point, Ship> occupied;
         Point point = new Point(3, 3);
-        Ship ship = makeShip(point, 1, Orientation.HORIZONTAL);
-        Board board = new Board(1);
+        Ship ship1 = makeShip(point, 1, Orientation.HORIZONTAL);
+        Board board = Board.withShips(singleton(ship1), 3);
         //When
         Boolean check = board.hasOnPosition(point);
         //Then
-        assertEquals(false, check);
+        assertEquals(true, check);
     }
 }
